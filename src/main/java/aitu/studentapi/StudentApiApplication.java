@@ -9,11 +9,10 @@ public class StudentApiApplication {
         SpringApplication.run(StudentApiApplication.class, args);
     }
 }
-//| Метод | URL                        |
-//        | ------ | -------------------------- |
-//        | GET    | /students                  |
-//        | POST   | /students                  |
-//        | PUT    | /students/{id}             |
-//        | DELETE | /students/{id}             |
-//        | GET    | /students/search?name=alex |
-//        | GET    | /students/sort/age         |
+
+//GET: /students
+//POST: /students
+//POST: /students/{id}
+//DELETE: /students/{id}
+//GET: /students/search?name=alex
+//GET: /students/sort/age
