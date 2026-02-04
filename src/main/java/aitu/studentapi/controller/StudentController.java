@@ -61,4 +61,11 @@ public class StudentController {
         repo.delete(id);
         return "Deleted";
     }
+    @PostMapping("/batch")
+    public String addMany(@RequestBody List<Student> students) throws SQLException {
+        for (Student s : students) {
+            repo.save(s);
+        }
+        return "Students added: " + students.size();
+    }
 }
