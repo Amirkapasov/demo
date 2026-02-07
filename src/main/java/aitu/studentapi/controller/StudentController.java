@@ -10,17 +10,23 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.SQLException;
 import java.util.List;
 
+import aitu.studentapi.datapool.StudentDataPool;
+
 @RestController
 @RequestMapping("/students")
 public class StudentController {
 
     private final StudentRepository repo;
     private final PersonService personService;
+    private final StudentDataPool dataPool;
 
-    // ОДИН конструктор для Spring
-    public StudentController(StudentRepository repo, PersonService personService) {
+    // ✅ ОДИН конструктор
+    public StudentController(StudentRepository repo,
+                             PersonService personService,
+                             StudentDataPool dataPool) {
         this.repo = repo;
         this.personService = personService;
+        this.dataPool = dataPool;
     }
 
     @GetMapping
@@ -40,12 +46,15 @@ public class StudentController {
         Student s = repo.findById(id);
         if (s == null) throw new StudentNotFoundException(id);
 
-        personService.printInfo(s); // полиморфизм
+        personService.printInfo(s);
         return "Printed to console";
     }
 
     @PostMapping
     public String add(@RequestBody Student s) throws SQLException {
+        if (repo.existsByName(s.getName())) {
+            return "Error: student with this name already exists";
+        }
         repo.save(s);
         return "Student added";
     }
@@ -61,6 +70,7 @@ public class StudentController {
         repo.delete(id);
         return "Deleted";
     }
+
     @PostMapping("/batch")
     public String addMany(@RequestBody List<Student> students) throws SQLException {
         for (Student s : students) {
@@ -68,4 +78,17 @@ public class StudentController {
         }
         return "Students added: " + students.size();
     }
+    @GetMapping("/high-gpa/{min}")
+    public List<Student> highGpa(@PathVariable float min) throws SQLException {
+        dataPool.setStudents(repo.findAll());
+        return dataPool.highGpa(min);
+    }
+
+    @GetMapping("/sort/age")
+    public List<Student> sortByAge() throws SQLException {
+        dataPool.setStudents(repo.findAll());
+        return dataPool.sortByAge();
+    }
+
 }
+

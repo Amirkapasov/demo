@@ -10,4 +10,5 @@ public interface StudentRepository {
     void save(Student s) throws SQLException;
     void update(int id, Student s) throws SQLException;
     void delete(int id) throws SQLException;
+    boolean existsByName(String name) throws SQLException;
 }

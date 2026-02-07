@@ -28,4 +28,8 @@ public class StudentDataPool {
                 .sorted(Comparator.comparingInt(Student::getAge))
                 .toList();
     }
+    public void setStudents(List<Student> list) {
+        students.clear();
+        students.addAll(list);
+    }
 }

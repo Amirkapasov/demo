@@ -33,6 +33,7 @@ public class CourseController {
         return "Course added";
     }
 
+
     @DeleteMapping("/{id}")
     public String delete(@PathVariable int id) throws SQLException {
         repo.delete(id);

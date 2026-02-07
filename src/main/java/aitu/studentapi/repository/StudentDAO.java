@@ -79,6 +79,22 @@ public class StudentDAO implements StudentRepository {
             ps.executeUpdate();
         }
     }
+    @Override
+    public boolean existsByName(String name) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM students WHERE LOWER(name) = LOWER(?)";
+
+        try (Connection c = DatabaseConfig.getConnection();
+             PreparedStatement ps = c.prepareStatement(sql)) {
+
+            ps.setString(1, name);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        }
+        return false;
+    }
 
     @Override
     public void delete(int id) throws SQLException {
@@ -89,4 +105,5 @@ public class StudentDAO implements StudentRepository {
             ps.executeUpdate();
         }
     }
+
 }

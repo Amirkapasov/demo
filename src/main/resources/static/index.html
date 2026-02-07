@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student UI</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h2>Students</h2>
+
+<input id="name" placeholder="Name">
+<input id="age" type="number" placeholder="Age">
+<input id="gpa" type="number" step="0.1" placeholder="GPA">
+<button onclick="addStudent()">Add student</button>
+
+<hr>
+
+<input id="minGpa" type="number" step="0.1" placeholder="Min GPA (default 3.5)">
+<button onclick="highGpa()">High GPA</button>
+<button onclick="sortByAge()">Sort by age</button>
+<button onclick="loadAll()">All students</button>
+
+<ul id="students"></ul>
+
+<h2>Courses</h2>
+
+<input id="courseTitle" placeholder="Course title">
+<input id="courseCredits" type="number" placeholder="Credits">
+<button onclick="addCourse()">Add course</button>
+
+<ul id="courses"></ul>
+
+<h3>Assign course to student</h3>
+
+<input id="studentId" type="number" placeholder="Student ID">
+<input id="courseId" type="number" placeholder="Course ID">
+<button onclick="assignCourse()">Assign</button>
+
+<br><br>
+
+<input id="viewStudentId" type="number" placeholder="Student ID">
+<button onclick="loadStudentCourses()">Show ALL courses for student</button>
+
+<ul id="studentCourses"></ul>
+
+<script src="script.js"></script>
+</body>
+</html>
